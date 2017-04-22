@@ -73,7 +73,7 @@ describe("Binary Search Trees", () => {
 
                 expect(twentyFive.right).to.be.null;
                 expect(twentyFive.left.value).to.equal(15);
-            })
+            });
 
             it("should set the parent node's left property to null when removing a leaf node which is less than its parent", () => {
                 let twentyFive = bst.root.left;
@@ -81,9 +81,27 @@ describe("Binary Search Trees", () => {
 
                 expect(twentyFive.left).to.be.null;
                 expect(twentyFive.right.value).to.equal(35);
-            })
-        }) 
-    })
+            });
+        });
+
+        describe("#remove with node with one child", () => {
+            it("should change the left property of the removed node's parent to be the one child of the removed node given that the removed node is less than its parent", () => {
+                let twentyFive = bst.root.left;
+                bst.insert(new Node(20));
+
+                bst.remove(15);
+                expect(twentyFive.left.value).to.equal(20);
+            });
+
+            it("should change the right property of the removed node's parent to be the one child of the removed node given that the removed node is greater than its parent", () => {
+                let seventyFive = bst.root.right;
+                bst.insert(new Node(80));
+
+                bst.remove(85);
+                expect(seventyFive.right.value).to.equal(80);
+            });
+        })
+    });
 
 
 

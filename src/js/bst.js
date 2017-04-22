@@ -38,12 +38,18 @@ class BinarySearchTree {
                 else if (curNode.value > parentNode.value) parentNode.right = null;
                 return;
             }
-
-            // One child:
-
             // Two children:
-        }
+            else if(curNode.left && curNode.right) {
 
+            }
+            // One child:
+            else if(!curNode.left || !curNode.right) {
+                if(curNode.value < parentNode.value) parentNode.left = curNode.left || curNode.right;
+                else if (curNode.value > parentNode.value) parentNode.right = curNode.left || curNode.right;
+                return
+            }
+            
+        }
         else if(value < curNode.value) return this.remove(value, curNode.left, curNode)
         else if (value > curNode.value) return this.remove(value, curNode.right, curNode)
     }
