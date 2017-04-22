@@ -6,6 +6,7 @@ const BinarySearchTree = bstModule.BinarySearchTree;
 const Node = bstModule.Node;
 
 describe("Binary Search Trees", () => {
+    
     beforeEach(() => {
         bst = new BinarySearchTree();
 
@@ -19,8 +20,9 @@ describe("Binary Search Trees", () => {
                         // 15   35   65   85
 
     });
-    
+
     describe("#insert", () => {
+
         it("should insert a node as the root if none is present in a tree", () => {
             expect(bst.root.value).to.equal(50);
         });
@@ -41,7 +43,7 @@ describe("Binary Search Trees", () => {
 
             expect(expectedSeventyFive.value).to.equal(75);
             expect(expectedEightyFive.value).to.equal(85);
-        })
+        });
 
         it("should insert an arbritrary number into a tree correctly", () => {
             let fifteen = bst.root.left.left,
@@ -49,17 +51,50 @@ describe("Binary Search Trees", () => {
                 sixtyFive = bst.root.right.left,
                 eightyFive = bst.root.right.right;
 
+            bst.insert(new Node(10));
+            bst.insert(new Node(46));
+            bst.insert(new Node(55));
+            bst.insert(new Node(92));
 
+            expect(fifteen.left.value).to.equal(10);
+            expect(thirtyFive.right.value).to.equal(46);
+            expect(sixtyFive.left.value).to.equal(55);
+            expect(eightyFive.right.value).to.equal(92);
+        });
+    });
 
-            bst.insert(new Node(10))
-            bst.insert(new Node(46))
-            bst.insert(new Node(55))
-            bst.insert(new Node(92))
+    describe("#remove", () => {
 
-            expect(fifteen.left.value).to.equal(10)
-            expect(thirtyFive.right.value).to.equal(46)
-            expect(sixtyFive.left.value).to.equal(55)
-            expect(eightyFive.right.value).to.equal(92)
-        })
+        describe("#remove node with no children", () => {       
+
+            it("should set the parent node's right property to null when removing a leaf node which is greater than its parent", () => {
+                let twentyFive = bst.root.left;
+                bst.remove(35);
+
+                expect(twentyFive.right).to.be.null;
+                expect(twentyFive.left.value).to.equal(15);
+            })
+
+            it("should set the parent node's left property to null when removing a leaf node which is less than its parent", () => {
+                let twentyFive = bst.root.left;
+                bst.remove(15);
+
+                expect(twentyFive.left).to.be.null;
+                expect(twentyFive.right.value).to.equal(35);
+            })
+        }) 
     })
-})
+
+
+
+
+
+
+
+
+
+});
+
+
+
+

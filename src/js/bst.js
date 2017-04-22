@@ -28,15 +28,31 @@ class BinarySearchTree {
         if(newNode.value === curNode.value) return;
     }
 
+    remove(value, curNode=this.root, parentNode) {
+
+        if(value === curNode.value) {
+
+            // No children:
+            if(!curNode.left && !curNode.right) {
+                if(curNode.value < parentNode.value) parentNode.left = null;
+                else if (curNode.value > parentNode.value) parentNode.right = null;
+                return;
+            }
+
+            // One child:
+
+            // Two children:
+        }
+
+        else if(value < curNode.value) return this.remove(value, curNode.left, curNode)
+        else if (value > curNode.value) return this.remove(value, curNode.right, curNode)
+    }
+
     depthFirstSearch() {
 
     }
 
     breadthFirstSeach() {
-
-    }
-
-    remove() {
 
     }
 }
