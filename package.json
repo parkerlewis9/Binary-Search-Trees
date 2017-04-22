@@ -1,0 +1,26 @@
+{
+  "name": "binary_search_trees",
+  "version": "1.0.0",
+  "description": "This repo will provide information about the binary search tree data structure as well as exercises to apply algorithms to retrieve meaningful information from the trees.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parkerlewis9/Binary-Search-Trees.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parkerlewis9/Binary-Search-Trees/issues"
+  },
+  "homepage": "https://github.com/parkerlewis9/Binary-Search-Trees#readme",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
