@@ -1,3 +1,6 @@
+const Stack = require("./helperDataStructures").Stack;
+const Queue = require("./helperDataStructures").Queue;
+
 class BinarySearchTree {
     constructor(root=null) {
         this.root = root;
@@ -66,12 +69,41 @@ class BinarySearchTree {
         else if (value > curNode.value) return this.remove(value, curNode.right, curNode)
     }
 
-    depthFirstSearch() {
+    depthFirstSearch(value, currentNode, fringe = (new Stack()) ) {
+        var currentNode = currentNode || this.root;
+
+        if(currentNode.value === value) return currentNode;
+
+        if (currentNode.right) fringe.push(currentNode.right)
+        if (currentNode.left) fringe.push(currentNode.left)
+
+        while(fringe.length > 0) {
+            let nodeToSearch = fringe.pop();
+            let returnedFromSearch = this.depthFirstSearch(value, nodeToSearch, fringe);
+
+            if(returnedFromSearch !== undefined ) return returnedFromSearch
+        }
+
+        return null;
 
     }
 
-    breadthFirstSeach() {
+    breadthFirstSearch(value, currentNode, fringe= (new Queue()) ) {
+        var currentNode = currentNode || this.root;
 
+        if(currentNode.value === value) return currentNode;
+
+        if (currentNode.right) fringe.enqueue(currentNode.right)
+        if (currentNode.left) fringe.enqueue(currentNode.left)
+
+        while(fringe.length > 0) {
+            let nodeToSearch = fringe.dequeue();
+            let returnedFromSearch = this.breadthFirstSearch(value, nodeToSearch, fringe);
+            
+            if(returnedFromSearch !== undefined ) return returnedFromSearch
+        }
+
+        return null;
     }
 }
 

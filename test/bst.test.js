@@ -178,10 +178,83 @@ describe("Binary Search Trees", () => {
         })
     });
 
+    describe("#depthFirstSearch", () => {
+        it("should return the node with the value that was searched for at bottom of tree", () => {
+            let expectedNodeFifteen = bst.depthFirstSearch(15);
+            expect(expectedNodeFifteen).to.be.an.instanceof(Node);
+            expect(expectedNodeFifteen.value).to.equal(15);
 
+            let expectedNodeThirtyFive = bst.depthFirstSearch(35);
+            expect(expectedNodeThirtyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeThirtyFive.value).to.equal(35);
 
+            let expectedNodeSixtyFive = bst.depthFirstSearch(65);
+            expect(expectedNodeSixtyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeSixtyFive.value).to.equal(65);
 
+            let expectedNodeEightyFive = bst.depthFirstSearch(85);
+            expect(expectedNodeEightyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeEightyFive.value).to.equal(85);
+        });
 
+        it("should return the node with the value that was searched for at an arbitray depth", () => {
+            let expectedNodeTwentyFive = bst.depthFirstSearch(25);
+            expect(expectedNodeTwentyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeTwentyFive.value).to.equal(25);
+
+            let expectedNodeSeventyFive = bst.depthFirstSearch(75);
+            expect(expectedNodeSeventyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeSeventyFive.value).to.equal(75);
+
+            let expectedRootNode = bst.depthFirstSearch(50);
+            expect(expectedRootNode).to.be.an.instanceof(Node);
+            expect(expectedRootNode.value).to.equal(50);
+        });
+
+        it("should return null if a node is not present in the tere", () => {
+            let expectedNull = bst.depthFirstSearch(100);
+            expect(expectedNull).to.be.null;
+        });
+    });
+
+    describe("#breadthFirstSearch", () => {
+        it("should return the node with the value that was searched for at bottom of tree", () => {
+            let expectedNodeFifteen = bst.breadthFirstSearch(15);
+            expect(expectedNodeFifteen).to.be.an.instanceof(Node);
+            expect(expectedNodeFifteen.value).to.equal(15);
+
+            let expectedNodeThirtyFive = bst.breadthFirstSearch(35);
+            expect(expectedNodeThirtyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeThirtyFive.value).to.equal(35);
+
+            let expectedNodeSixtyFive = bst.breadthFirstSearch(65);
+            expect(expectedNodeSixtyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeSixtyFive.value).to.equal(65);
+
+            let expectedNodeEightyFive = bst.breadthFirstSearch(85);
+            expect(expectedNodeEightyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeEightyFive.value).to.equal(85);
+        });
+
+        it("should return the node with the value that was searched for at an arbitray depth", () => {
+            let expectedNodeTwentyFive = bst.breadthFirstSearch(25);
+            expect(expectedNodeTwentyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeTwentyFive.value).to.equal(25);
+
+            let expectedNodeSeventyFive = bst.breadthFirstSearch(75);
+            expect(expectedNodeSeventyFive).to.be.an.instanceof(Node);
+            expect(expectedNodeSeventyFive.value).to.equal(75);
+
+            let expectedRootNode = bst.breadthFirstSearch(50);
+            expect(expectedRootNode).to.be.an.instanceof(Node);
+            expect(expectedRootNode.value).to.equal(50);
+        });
+
+        it("should return null if a node is not present in the tere", () => {
+            let expectedNull = bst.breadthFirstSearch(100);
+            expect(expectedNull).to.be.null;
+        });
+    });
 
 
 
