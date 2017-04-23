@@ -40,7 +40,19 @@ class BinarySearchTree {
             }
             // Two children:
             else if(curNode.left && curNode.right) {
+                let scout = curNode.left;
+                let scoutParent = curNode;
+                let replacer = scout;
+                while(scout.right) {
+                    scoutParent = scout;
+                    scout = scout.right;
+                }
+                // scout to be parentNode's child
+                if(curNode.value < parentNode.value) parentNode.left = scout;
+                else if(curNode.value > parentNode.value) parentNode.right = scout
 
+                scout.left = replacer
+                scoutParent.right = null;
             }
             // One child:
             else if(!curNode.left || !curNode.right) {

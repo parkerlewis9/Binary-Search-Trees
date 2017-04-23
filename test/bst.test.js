@@ -11,7 +11,7 @@ describe("Binary Search Trees", () => {
         bst = new BinarySearchTree();
 
         [50,25,75,15,35,65,85].map((value) => new Node(value))
-                                .forEach((node) => bst.insert(node))
+                              .forEach((node) => bst.insert(node));
 
                         //         50
                         //         /\
@@ -84,7 +84,10 @@ describe("Binary Search Trees", () => {
             });
         });
 
-        describe("#remove with node with one child", () => {
+
+
+        describe("#remove node with one child", () => {
+
             it("should change the left property of the removed node's parent to be the one child of the removed node given that the removed node is less than its parent", () => {
                 let twentyFive = bst.root.left;
                 bst.insert(new Node(20));
@@ -99,6 +102,78 @@ describe("Binary Search Trees", () => {
 
                 bst.remove(85);
                 expect(seventyFive.right.value).to.equal(80);
+            });
+        });
+
+        describe("#remove node with two children", () => {
+
+            beforeEach(() => {
+                [10,20,30,40,50,60,70,80,90].map((value) => new Node(value))
+                                            .forEach((node) => bst.insert(node));
+            });
+                                //         50
+                                //         /\
+                                //     25      75
+                                //     /\      /\
+                                // 15   35   65   85
+                                // /\   /\   /\   /\
+                                //1020|3040|6070|8090| 
+
+
+            it("should remove node 25 from above and replace it with node 20 ",() => {
+                bst.remove(25);
+
+                let expectedTwenty = bst.root.left.value; // use dfs to find twenty and check it's left and right?
+
+                expect(expectedTwenty).to.equal(20);
+
+                                //         50
+                                //         /\
+                                //     20      75
+                                //     /\      /\
+                                // 15   35   65   85
+                                // /\   /\   /\   /\
+                                //10  |3040|6070|8090| 
+
+            });
+
+            it("should remove node 75 from above and replace it with node 70", () => {
+                bst.remove(75);
+
+                let expectedSeventy = bst.root.right.value;
+                expect(expectedSeventy).to.equal(70);
+                let expectedNull = bst.root.right.left.right; // search for 65 with BFS
+                expect(expectedNull).to.be.null;
+
+                                //         50
+                                //         /\
+                                //     25      70
+                                //     /\      /\
+                                // 15   35   65   85
+                                // /\   /\   /\   /\
+                                //1020|3040|60  |8090| 
+            });
+
+            // check more levels and adjust
+
+
+
+
+            it("should remove the root node from above (50) and replace it with node 40 ",() => {
+                bst.remove(bst.root);
+
+                let expectedForty = bst.root.left.right.right.value; // Todo - use dfs for this
+
+                expect(expectedForty).to.equal(40)
+
+                                //         50
+                                //         /\
+                                //     20      75
+                                //     /\      /\
+                                // 15   35   65   85
+                                // /\   /\   /\   /\
+                                //1020|30  |6070|8090| 
+
             });
         })
     });
