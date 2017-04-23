@@ -65,7 +65,7 @@ describe("Binary Search Trees", () => {
 
     describe("#remove", () => {
 
-        describe("#remove node with no children", () => {       
+        describe("#remove node with no children", () => {
 
             it("should set the parent node's right property to null when removing a leaf node which is greater than its parent", () => {
                 let twentyFive = bst.root.left;
@@ -154,9 +154,43 @@ describe("Binary Search Trees", () => {
                                 //1020|3040|60  |8090| 
             });
 
-            // check more levels and adjust
+            it("should correctly remove a value from the height - 1 level of the tree (65 --> 60)", () => {
+                bst.remove(65);
 
+                let expectedSixty = bst.depthFirstSearch(60);
+                expect(expectedSixty.value).to.equal(60);
+                // let expectedSeventy = expectedSixty.right;
+                // expect(expectedSeventy.value).to.equal(70);
+                let expectedNull = expectedSixty.left; 
+                console.log(expectedNull)
+                expect(expectedNull).to.be.null;
 
+                                //         50
+                                //         /\
+                                //     25      75
+                                //     /\      /\
+                                // 15   35   60   85
+                                // /\   /\   /\   /\
+                                //1020|3040|  70|8090| 
+            });
+
+            it("should correctly remove a value from the height - 1 level of the tree", () => {
+                bst.remove(65);
+
+                let expectedSixty = bst.depthFirstSearch(60);
+                expect(expectedSixty.value).to.equal(60);
+                let expectedNull = expectedSixty.left; // search for 65 with BFS
+                console.log(expectedNull)
+                expect(expectedNull).to.be.null;
+
+                                //         50
+                                //         /\
+                                //     25      75
+                                //     /\      /\
+                                // 15   35   60   85
+                                // /\   /\   /\   /\
+                                //1020|3040|  70|8090| 
+            });
 
 
             it("should remove the root node from above (50) and replace it with node 40 ",() => {

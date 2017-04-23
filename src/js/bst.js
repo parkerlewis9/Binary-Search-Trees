@@ -45,7 +45,9 @@ class BinarySearchTree {
             else if(curNode.left && curNode.right) {
                 let scout = curNode.left;
                 let scoutParent = curNode;
-                let replacer = scout;
+                let leftOfReplacedNode = curNode.left; // needed in order to connect replacement node to the subtree of the removed node
+                // also need rightOfReplacementNode = curNode.right;
+
                 while(scout.right) {
                     scoutParent = scout;
                     scout = scout.right;
@@ -54,8 +56,12 @@ class BinarySearchTree {
                 if(curNode.value < parentNode.value) parentNode.left = scout;
                 else if(curNode.value > parentNode.value) parentNode.right = scout
 
-                scout.left = replacer
-                scoutParent.right = null;
+                if(scout === leftOfReplacedNode) scout.left = null;
+                else {
+                    scout.left = leftOfReplacedNode
+                    scoutParent.right = null;
+                }
+
             }
             // One child:
             else if(!curNode.left || !curNode.right) {
