@@ -119,13 +119,42 @@ describe("Binary Search Trees", () => {
                                 // /\   /\   /\   /\
                                 //1020|3040|6070|8090| 
 
+            it("should remove the root node from above (50) and replace it with node 40 ",() => {
+                bst.remove(bst.root.value);
+
+                let replacement = bst.depthFirstSearch(40);
+                let replacementParent = bst.depthFirstSearch(35);
+
+                expect(replacement.left).to.be.an.instanceof(Node);
+                expect(replacement.left.value).to.equal(25);
+
+                expect(replacementParent.right).to.be.null;
+
+                expect(replacement.right).to.be.an.instanceof(Node);
+                expect(replacement.right.value).to.equal(75);
+
+                                //         40
+                                //         /\
+                                //     25      75
+                                //     /\      /\
+                                // 15   35   65   85
+                                // /\   /\   /\   /\
+                                //1020|30  |6070|8090| 
+            });
 
             it("should remove node 25 from above and replace it with node 20 ",() => {
                 bst.remove(25);
 
-                let expectedTwenty = bst.root.left.value; // use dfs to find twenty and check it's left and right?
+                let replacement = bst.depthFirstSearch(20); // use dfs to find replacement and check it's left and right?
+                let replacementOldParent = bst.depthFirstSearch(15);
 
-                expect(expectedTwenty).to.equal(20);
+                expect(replacement.right).to.be.an.instanceof(Node);
+                expect(replacement.right.value).to.equal(35);
+
+                expect(replacement.left).to.be.an.instanceof(Node);
+                expect(replacement.left.value).to.equal(15);
+
+                expect(replacementOldParent.right).to.be.null;
 
                                 //         50
                                 //         /\
@@ -140,10 +169,16 @@ describe("Binary Search Trees", () => {
             it("should remove node 75 from above and replace it with node 70", () => {
                 bst.remove(75);
 
-                let expectedSeventy = bst.root.right.value;
-                expect(expectedSeventy).to.equal(70);
-                let expectedNull = bst.root.right.left.right; // search for 65 with BFS
-                expect(expectedNull).to.be.null;
+                let replacement = bst.depthFirstSearch(70); // use dfs to find replacement and check it's left and right?
+                let replacementOldParent = bst.depthFirstSearch(65);
+
+                expect(replacement.right).to.be.an.instanceof(Node);
+                expect(replacement.right.value).to.equal(85);
+
+                expect(replacement.left).to.be.an.instanceof(Node);
+                expect(replacement.left.value).to.equal(65);
+
+                expect(replacementOldParent.right).to.be.null;
 
                                 //         50
                                 //         /\
@@ -157,13 +192,16 @@ describe("Binary Search Trees", () => {
             it("should correctly remove a value from the height - 1 level of the tree (65 --> 60)", () => {
                 bst.remove(65);
 
-                let expectedSixty = bst.depthFirstSearch(60);
-                expect(expectedSixty.value).to.equal(60);
-                // let expectedSeventy = expectedSixty.right;
-                // expect(expectedSeventy.value).to.equal(70);
-                let expectedNull = expectedSixty.left; 
-                console.log(expectedNull)
-                expect(expectedNull).to.be.null;
+                let replacement = bst.depthFirstSearch(60);
+                let parentOfRemoved = bst.depthFirstSearch(75);
+
+                expect(parentOfRemoved.left.value).to.equal(60);
+                expect(parentOfRemoved.right.value).to.equal(85);
+
+                expect(replacement.right).to.be.an.instanceof(Node);
+                expect(replacement.right.value).to.equal(70);
+
+                expect(replacement.left).to.be.null;
 
                                 //         50
                                 //         /\
@@ -174,42 +212,29 @@ describe("Binary Search Trees", () => {
                                 //1020|3040|  70|8090| 
             });
 
-            it("should correctly remove a value from the height - 1 level of the tree", () => {
-                bst.remove(65);
+            it("should correctly remove a value from the height - 1 level of the tree (15 --> 10)", () => {
+                bst.remove(15);
 
-                let expectedSixty = bst.depthFirstSearch(60);
-                expect(expectedSixty.value).to.equal(60);
-                let expectedNull = expectedSixty.left; // search for 65 with BFS
-                console.log(expectedNull)
-                expect(expectedNull).to.be.null;
+                let replacement = bst.depthFirstSearch(10);
+                let parentOfRemoved = bst.depthFirstSearch(25);
+
+                expect(parentOfRemoved.left.value).to.equal(10);
+                expect(parentOfRemoved.right.value).to.equal(35);
+
+                expect(replacement.right).to.be.an.instanceof(Node);
+                expect(replacement.right.value).to.equal(20);
+
+                expect(replacement.left).to.be.null;
 
                                 //         50
                                 //         /\
                                 //     25      75
                                 //     /\      /\
-                                // 15   35   60   85
+                                // 10   35   65   85
                                 // /\   /\   /\   /\
-                                //1020|3040|  70|8090| 
+                                //  20|3040|6070|8090| 
             });
-
-
-            it("should remove the root node from above (50) and replace it with node 40 ",() => {
-                bst.remove(bst.root);
-
-                let expectedForty = bst.root.left.right.right.value; // Todo - use dfs for this
-
-                expect(expectedForty).to.equal(40)
-
-                                //         50
-                                //         /\
-                                //     20      75
-                                //     /\      /\
-                                // 15   35   65   85
-                                // /\   /\   /\   /\
-                                //1020|30  |6070|8090| 
-
-            });
-        })
+        });
     });
 
     describe("#depthFirstSearch", () => {

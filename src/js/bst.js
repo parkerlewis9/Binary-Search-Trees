@@ -23,7 +23,7 @@ class BinarySearchTree {
         if(newNode.value > curNode.value){
             if(!curNode.right) {
                 curNode.right = newNode;
-                return
+                return;
             }
             else return this.insert(newNode, curNode.right);
         }
@@ -43,36 +43,50 @@ class BinarySearchTree {
             }
             // Two children:
             else if(curNode.left && curNode.right) {
+
                 let scout = curNode.left;
                 let scoutParent = curNode;
-                let leftOfReplacedNode = curNode.left; // needed in order to connect replacement node to the subtree of the removed node
-                // also need rightOfReplacementNode = curNode.right;
+
+                ///////////////////// Variable used in order to set subtrees of node that will replace the removed node
+                let leftOfReplacedNode = curNode.left; 
+                let rightOfReplacementNode = curNode.right;
 
                 while(scout.right) {
                     scoutParent = scout;
                     scout = scout.right;
                 }
-                // scout to be parentNode's child
-                if(curNode.value < parentNode.value) parentNode.left = scout;
-                else if(curNode.value > parentNode.value) parentNode.right = scout
 
-                if(scout === leftOfReplacedNode) scout.left = null;
-                else {
-                    scout.left = leftOfReplacedNode
-                    scoutParent.right = null;
+                /////////////// Replace removed node with scout by making it parentNode's child
+                    // Unless it is the root (which has no parent), then just make it the root
+                if(parentNode){
+                    if(curNode.value < parentNode.value) parentNode.left = scout;
+                    else if(curNode.value > parentNode.value) parentNode.right = scout;
+                } else {
+                    this.root = scout;
                 }
+
+                //////////////// Reset replacement (scout)'s left and right
+
+                // for h - 1 depth when you have skipped the while loop
+                if(scout === leftOfReplacedNode) scout.left = null;
+                else scout.left = leftOfReplacedNode;
+
+                scout.right = rightOfReplacementNode;
+
+                ////////////////  Remove reference to scout from its parent
+                scoutParent.right = null;
 
             }
             // One child:
             else if(!curNode.left || !curNode.right) {
                 if(curNode.value < parentNode.value) parentNode.left = curNode.left || curNode.right;
                 else if (curNode.value > parentNode.value) parentNode.right = curNode.left || curNode.right;
-                return
+                return;
             }
             
         }
-        else if(value < curNode.value) return this.remove(value, curNode.left, curNode)
-        else if (value > curNode.value) return this.remove(value, curNode.right, curNode)
+        else if(value < curNode.value) return this.remove(value, curNode.left, curNode);
+        else if (value > curNode.value) return this.remove(value, curNode.right, curNode);
     }
 
     depthFirstSearch(value, currentNode, fringe = (new Stack()) ) {
@@ -80,14 +94,14 @@ class BinarySearchTree {
 
         if(currentNode.value === value) return currentNode;
 
-        if (currentNode.right) fringe.push(currentNode.right)
-        if (currentNode.left) fringe.push(currentNode.left)
+        if (currentNode.right) fringe.push(currentNode.right);
+        if (currentNode.left) fringe.push(currentNode.left);
 
         while(fringe.length > 0) {
             let nodeToSearch = fringe.pop();
             let returnedFromSearch = this.depthFirstSearch(value, nodeToSearch, fringe);
 
-            if(returnedFromSearch !== undefined ) return returnedFromSearch
+            if(returnedFromSearch !== undefined ) return returnedFromSearch;
         }
 
         return null;
@@ -99,21 +113,19 @@ class BinarySearchTree {
 
         if(currentNode.value === value) return currentNode;
 
-        if (currentNode.right) fringe.enqueue(currentNode.right)
-        if (currentNode.left) fringe.enqueue(currentNode.left)
+        if (currentNode.right) fringe.enqueue(currentNode.right);
+        if (currentNode.left) fringe.enqueue(currentNode.left);
 
         while(fringe.length > 0) {
             let nodeToSearch = fringe.dequeue();
             let returnedFromSearch = this.breadthFirstSearch(value, nodeToSearch, fringe);
             
-            if(returnedFromSearch !== undefined ) return returnedFromSearch
+            if(returnedFromSearch !== undefined ) return returnedFromSearch;
         }
 
         return null;
     }
 }
-
-
 
 class Node {
     constructor(value=null, left=null, right=null){
