@@ -316,6 +316,17 @@ describe("Binary Search Trees", () => {
     });
 
 
+                        //         50
+                        //         /\
+                        //     25      75
+                        //     /\      /\
+                        // 15   35   65   85
+
+    describe("#retrieveAllInOrder", () => {
+        it("should return all nodes in order from least to greatest", () => {
+            expect(bst.retrieveAllInOrder()).to.deep.equal( [15,25,35,50,65,75,85].map(integer => bst.breadthFirstSearch(integer)));
+        });
+    });
 
 
 });

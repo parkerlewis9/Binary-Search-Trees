@@ -259,14 +259,10 @@ document.addEventListener( "DOMContentLoaded", () => {
 
 
 function updateTable (){
-    let alphabeticalNodes = getAlpahbeticalNodes(alphabeticalBinarySearchTree)
+    let alphabeticalNodes = alphabeticalBinarySearchTree.retrieveAllInOrder()
     let alphabeticalRows = buildRows(alphabeticalNodes);
     let tableBody = document.getElementById("table-body");
     alphabeticalRows.forEach((row) => tableBody.appendChild(row))
-}
-
-function getAlpahbeticalNodes(tree) {
-    return tree.searchAndRetrieveInOrder();
 }
 
 function builRows(arrayOfNodes) {

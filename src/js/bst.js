@@ -125,12 +125,30 @@ class BinarySearchTree {
 
         return null;
     }
+
+    retrieveAllInOrder(currentNode=this.root, returnArray=[]) {
+        var parentNode = currentNode;
+        var currentNode = parentNode.left;
+
+        if(!currentNode) return returnArray.push(parentNode);
+
+        this.retrieveAllInOrder(currentNode, returnArray);
+
+        returnArray.push(parentNode);
+
+        currentNode = parentNode.right;
+        this.retrieveAllInOrder(currentNode, returnArray);
+
+        return returnArray;
+
+
+
+    }
 }
 
 class Node {
     constructor(value=null, word="", left=null, right=null){
         this.value = value;
-        this.word = word;
         this.left = left;
         this.right = right;
     }
