@@ -128,8 +128,9 @@ class BinarySearchTree {
 }
 
 class Node {
-    constructor(value=null, left=null, right=null){
+    constructor(value=null, word="", left=null, right=null){
         this.value = value;
+        this.word = word;
         this.left = left;
         this.right = right;
     }
