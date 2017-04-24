@@ -140,9 +140,6 @@ class BinarySearchTree {
         this.retrieveAllInOrder(currentNode, returnArray);
 
         return returnArray;
-
-
-
     }
 }
 

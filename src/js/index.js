@@ -161,6 +161,23 @@ class BinarySearchTree {
 
         return null;
     }
+
+    retrieveAllInOrder(currentNode=this.root, returnArray=[]) {
+        // debugger
+        var parentNode = currentNode;
+        var currentNode = parentNode.left;
+
+        if(!currentNode) return returnArray.push(parentNode);
+
+        this.retrieveAllInOrder(currentNode, returnArray);
+
+        returnArray.push(parentNode);
+
+        currentNode = parentNode.right;
+        this.retrieveAllInOrder(currentNode, returnArray);
+
+        return returnArray;
+    }
 }
 
 class Node {
@@ -229,11 +246,8 @@ function stringToInteger(string) {
 
 // ************** Frontend JS Starts Here *******************
 
-const alphabeticalBinarySearchTree = new BinarySearchTree()
-
-const initialCenter = stringToInteger("mmmmm"); // add most middle value to help with initial balance
-const bstRoot = new Node(initialCenter, "mmmmm")
-alphabeticalBinarySearchTree.insert(bstRoot); 
+const alphabeticalBinarySearchTree = new BinarySearchTree();
+seedTree(alphabeticalBinarySearchTree);
 
 document.addEventListener( "DOMContentLoaded", () => {
 
@@ -256,13 +270,46 @@ document.addEventListener( "DOMContentLoaded", () => {
 
 });
 
+function seedTree (tree) {
+    // tree.insert(new Node(stringToInteger("mmmmm"), "mmmmm")) // add most middle value to help with initial balance
+    let letterBlocksArray = [];
+    for(letter in ALPHABET) {
+        letterBlocksArray.push(new Block(letter, stringToInteger(letter)));
+    }
 
+    binarySearchTypeInsertIntoBinaryTree(letterBlocksArray)
+}
+
+function binarySearchTypeInsertIntoBinaryTree (sortedArray) {
+    let length = sortedArray.length;
+    if (length === 0) return;
+
+    let midIndex = Math.floor((length-1)/2);
+    let left = sortedArray.slice(0, midIndex);
+    let right = sortedArray.slice(midIndex + 1, length);
+
+// This part is really bad. Thers has to be a better way to do this. But it gets the job done for now.
+    let blockToInsert = sortedArray[midIndex];
+    let nodeToInsert = new Node(blockToInsert.integer, blockToInsert.letter);
+
+    alphabeticalBinarySearchTree.insert(nodeToInsert);
+    binarySearchTypeInsertIntoBinaryTree(left);
+    binarySearchTypeInsertIntoBinaryTree(right);
+    return;
+}
+
+function Block(letter, integer) {
+    // TODO - make up better name
+    this.letter = letter;
+    this.integer = integer;
+}
 
 function updateTable (){
     let alphabeticalNodes = alphabeticalBinarySearchTree.retrieveAllInOrder()
-    let alphabeticalRows = buildRows(alphabeticalNodes);
-    let tableBody = document.getElementById("table-body");
-    alphabeticalRows.forEach((row) => tableBody.appendChild(row))
+    console.log(alphabeticalNodes)
+    // let alphabeticalRows = buildRows(alphabeticalNodes);
+    // let tableBody = document.getElementById("table-body");
+    // alphabeticalRows.forEach((row) => tableBody.appendChild(row))
 }
 
 function builRows(arrayOfNodes) {
@@ -272,7 +319,9 @@ function builRows(arrayOfNodes) {
 
 
 function addToTree (newWord) {
-    // This use of a promise is unnecessary as nothing asynchronous is happening
+    // This use of a promise is unnecessary as nothing asynchronous is happening. This could
+    // be where a database call is made to save the state of the tree in the No-SQL database.
+
     return new Promise((resolve, reject) => {
         integerValue = stringToInteger(newWord);
         newNode = new Node(integerValue, newWord);
@@ -280,5 +329,7 @@ function addToTree (newWord) {
         resolve({integerValue, word: newWord})
     })
 }
+
+
 
 
