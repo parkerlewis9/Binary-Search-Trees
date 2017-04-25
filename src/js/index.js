@@ -263,21 +263,19 @@ document.addEventListener( "DOMContentLoaded", () => {
             // console.log(alphabeticalBinarySearchTree)
             // console.log(integerValue)
             // console.log(word)
-        })
-
-    })
-
-
+        });
+    });
 });
 
 function seedTree (tree) {
-    // tree.insert(new Node(stringToInteger("mmmmm"), "mmmmm")) // add most middle value to help with initial balance
+
     let letterBlocksArray = [];
     for(letter in ALPHABET) {
         letterBlocksArray.push(new Block(letter, stringToInteger(letter)));
     }
 
-    binarySearchTypeInsertIntoBinaryTree(letterBlocksArray)
+    binarySearchTypeInsertIntoBinaryTree(letterBlocksArray);
+    updateTable();
 }
 
 function binarySearchTypeInsertIntoBinaryTree (sortedArray) {
@@ -306,14 +304,31 @@ function Block(letter, integer) {
 
 function updateTable (){
     let alphabeticalNodes = alphabeticalBinarySearchTree.retrieveAllInOrder()
-    console.log(alphabeticalNodes)
-    // let alphabeticalRows = buildRows(alphabeticalNodes);
-    // let tableBody = document.getElementById("table-body");
-    // alphabeticalRows.forEach((row) => tableBody.appendChild(row))
+    let alphabeticalRows = buildRows(alphabeticalNodes);
+    console.log(alphabeticalRows)
+    let tableBody = document.getElementById("table-body");
+    alphabeticalRows.forEach((row) => tableBody.appendChild(row))
 }
 
-function builRows(arrayOfNodes) {
-
+function buildRows(arrayOfNodes) {
+    return arrayOfNodes.map((node) => {
+        let tr = document.createElement("tr");
+        let word = document.createElement("td")
+        word.innerText = node.word;
+        let integer = document.createElement("td")
+        integer.innerText = node.value;
+        let remove = document.createElement("td")
+        let button = document.createElement("button")
+        button.innerText = "x"
+        button.classList.add("btn")
+        button.classList.add("btn-sm")
+        button.classList.add("btn-danger")
+        remove.appendChild(button);
+        tr.appendChild(word);
+        tr.appendChild(integer);
+        tr.appendChild(remove);
+        return tr;
+    })
 }
 
 

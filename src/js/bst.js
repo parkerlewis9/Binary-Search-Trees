@@ -7,6 +7,9 @@ class BinarySearchTree {
     }
 
     insert(newNode, curNode = this.root) {
+        // newNode = 11;
+        // curNode = 9;
+
         if(!this.root) {
             this.root = newNode;
             return;
@@ -101,7 +104,7 @@ class BinarySearchTree {
             let nodeToSearch = fringe.pop();
             let returnedFromSearch = this.depthFirstSearch(value, nodeToSearch, fringe);
 
-            if(returnedFromSearch !== undefined ) return returnedFromSearch;
+            if(returnedFromSearch !== null ) return returnedFromSearch;
         }
 
         return null;
@@ -144,7 +147,7 @@ class BinarySearchTree {
 }
 
 class Node {
-    constructor(value=null, word="", left=null, right=null){
+    constructor(value=null, left=null, right=null){
         this.value = value;
         this.left = left;
         this.right = right;
