@@ -9,6 +9,6 @@ We create and use "data structres" to organize data in our computer in a way tha
 
 ------------------------------------------------------------------------------------------------------
 
-Click on this image to view a video of a talk I gave on BSTs and their application in a project I'm working on:
+Click on this image to view a video of a talk I gave on BSTs and their application in this project I'm working on:
 
-<a href="https://www.youtube.com/watch?v=WQwDhj0UYoM" target="_blank"><img src="./images/ABSTTalk.png" alt="Alphabetical Binary Search Trees Talk Video - 4/24/17 - Galvanize"></a>
+<a href="https://www.youtube.com/watch?v=YxDu819rW0k" target="_blank"><img src="./images/ABSTTalk.png" alt="Alphabetical Binary Search Trees Talk Video - 4/24/17 - Galvanize"></a>
